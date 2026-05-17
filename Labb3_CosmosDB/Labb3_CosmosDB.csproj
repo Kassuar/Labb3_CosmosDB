@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Core\Services\" />
-    <Folder Include="Data\Interfaces\" />
-    <Folder Include="Data\Repo\" />
     <Folder Include="Endpoints\" />
     <Folder Include="Core\Interfaces\" />
   </ItemGroup>
