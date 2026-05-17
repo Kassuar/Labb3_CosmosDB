@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="Core\Services\" />
+    <Folder Include="Data\Interfaces\" />
+    <Folder Include="Data\Repo\" />
     <Folder Include="Endpoints\" />
-    <Folder Include="Services\" />
+    <Folder Include="Core\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
