@@ -29,33 +29,54 @@ Customer customer,
 ICustomerRepo repo
 ) =>
 {
-    await repo
-       .AddCustomer(
-          customer
-       );
+    await repo.AddCustomer(customer);
 
-    return Results.Ok(
-       customer
-    );
+    return Results.Ok(customer);
 });
 
 app.MapGet(
-"/customers/{Id}",
+    "/customers",
+
+    async (ICustomerRepo repo) =>
+    {
+        var customer = await repo.GetAll();
+
+        return Results.Ok(customer);
+    });
+
+app.MapGet(
+"/customer/{Id}",
 
 async (
 string id,
 ICustomerRepo repo
 ) =>
 {
-    var customer =
-       await repo
-       .GetCustomerById(
-          id
-       );
+    var customer = await repo.GetCustomerById(id);
 
-    return Results.Ok(
-       customer
-    );
+    return Results.Ok(customer);
 });
+
+app.MapPut("/customer/{id}",async (string id,Customer customer,ICustomerRepo repo) =>
+{
+
+ customer.id = id;
+
+ await repo.UpdateCustomer(customer);
+
+ return Results.Ok(customer);
+
+});
+
+app.MapDelete("/customer/{id}", async (string id, ICustomerRepo repo) =>
+{
+    await repo.DeleteCustomer(id);
+
+    return Results.Ok();
+});
+
+
+
+
 
 app.Run();
