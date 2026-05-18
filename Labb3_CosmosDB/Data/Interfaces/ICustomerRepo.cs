@@ -8,11 +8,11 @@ namespace Labb3_CosmosDB.Data.Interfaces
 
         Task<IEnumerable<Customer>> GetAll();
 
-        Task<Customer> GetCustomerById(int id);
+        Task<Customer> GetCustomerById(string id);
 
         Task UpdateCustomer(Customer customer);
 
-        Task DeleteCustomer (int id);
+        Task DeleteCustomer (string id);
 
         Task <IEnumerable<Customer>> SearchCustomerByName(string name);
 

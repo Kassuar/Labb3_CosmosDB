@@ -16,10 +16,10 @@ namespace Labb3_CosmosDB.Data.Repo
         }
         public async Task AddCustomer(Customer customer)
         {
-            await _container.CreateItemAsync(customer, new PartitionKey(customer.Id));
+            await _container.CreateItemAsync(customer, new PartitionKey(customer.id));
         }
 
-        public Task DeleteCustomer(int id)
+        public Task DeleteCustomer( string id)
         {
             throw new NotImplementedException();
         }
@@ -48,9 +48,11 @@ namespace Labb3_CosmosDB.Data.Repo
         };
         }
 
-        public Task<Customer> GetCustomerById(int id)
+        public async Task<Customer> GetCustomerById(string id)
         {
-            throw new NotImplementedException();
+            var response = await _container.ReadItemAsync<Customer>(id, new PartitionKey(id));
+
+            return response.Resource;
         }
 
         public Task<IEnumerable<Customer>> SearchCustomerByName(string name)
