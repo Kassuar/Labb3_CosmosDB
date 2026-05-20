@@ -58,14 +58,38 @@ namespace Labb3_CosmosDB.Data.Repo
             return response.Resource;
         }
 
-        public Task<IEnumerable<Customer>> SearchCustomerByName(string name)
+        public async Task<IEnumerable<Customer>> SearchCustomerByName(string name)
         {
-            throw new NotImplementedException();
+            var customers = new List<Customer>();
+
+            var iterator = _container.GetItemQueryIterator<Customer>($"Select * from c where c.Name ='{name}'");
+
+            while (iterator.HasMoreResults) 
+            {
+                var response = await iterator.ReadNextAsync();
+
+                customers.AddRange(response);
+            }
+
+            return customers;
         }
 
-        public Task<IEnumerable<Customer>> SearchCustomerBySellerName(string sellerName)
+        public async Task<IEnumerable<Customer>> SearchCustomerBySellerName(string sellerName)
         {
-            throw new NotImplementedException();
+            var customers = new List<Customer>();
+
+            var iterator = _container.GetItemQueryIterator<Customer>($"Select ' from c where c.Seller.Name='{sellerName}'");
+
+            while (iterator.HasMoreResults)
+            {
+               var response = await iterator.ReadNextAsync();
+                
+                customers.AddRange(response);
+
+            }
+
+            return customers;
+
         }
 
         public async Task UpdateCustomer(Customer customer)

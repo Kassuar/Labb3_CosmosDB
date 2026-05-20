@@ -75,8 +75,18 @@ app.MapDelete("/customer/{id}", async (string id, ICustomerRepo repo) =>
     return Results.Ok();
 });
 
+app.MapGet("/customer/search/name", async (string name, ICustomerRepo repo) =>
+{
+   var customers = await repo.SearchCustomerByName(name);
 
+    return Results.Ok(customers);
+});
 
+app.MapGet("/customer/search/seller", async (string sellerName, ICustomerRepo repo) =>
+{
+    var customers = await repo.SearchCustomerByName(sellerName);
 
+    return Results.Ok(customers);
+});
 
 app.Run();
