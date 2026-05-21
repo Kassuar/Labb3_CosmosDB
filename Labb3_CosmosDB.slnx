@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="CustomerDbTrigger/CustomerDbTrigger.csproj" Id="3acbf880-707d-4f01-b6a9-ad5e08ed645b" />
   <Project Path="Labb3_CosmosDB/Labb3_CosmosDB.csproj" />
 </Solution>
