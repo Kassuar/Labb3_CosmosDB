@@ -1,9 +1,10 @@
 using Labb3_CosmosDB.Data;
-using Labb3_CosmosDB.Data.Interfaces;
-using Labb3_CosmosDB.Data.Models;
-using Labb3_CosmosDB.Data.Repo;
+using Labb3_CosmosDB.Models;
 using Microsoft.OpenApi;
 using Microsoft.AspNetCore.Builder;
+using Labb3_CosmosDB.Endpoints;
+using Labb3_CosmosDB.Interfaces;
+using Labb3_CosmosDB.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<CosmosContext>();
 
-builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 
 var app = builder.Build();
@@ -20,73 +21,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.Register();
 
-app.MapPost(
-"/customers",
-
-async (
-Customer customer,
-ICustomerRepo repo
-) =>
-{
-    await repo.AddCustomer(customer);
-
-    return Results.Ok(customer);
-});
-
-app.MapGet(
-    "/customers",
-
-    async (ICustomerRepo repo) =>
-    {
-        var customer = await repo.GetAll();
-
-        return Results.Ok(customer);
-    });
-
-app.MapGet(
-"/customer/{Id}",
-
-async (
-string id,
-ICustomerRepo repo
-) =>
-{
-    var customer = await repo.GetCustomerById(id);
-
-    return Results.Ok(customer);
-});
-
-app.MapPut("/customer/{id}",async (string id,Customer customer,ICustomerRepo repo) =>
-{
-
- customer.id = id;
-
- await repo.UpdateCustomer(customer);
-
- return Results.Ok(customer);
-
-});
-
-app.MapDelete("/customer/{id}", async (string id, ICustomerRepo repo) =>
-{
-    await repo.DeleteCustomer(id);
-
-    return Results.Ok();
-});
-
-app.MapGet("/customer/search/name", async (string name, ICustomerRepo repo) =>
-{
-   var customers = await repo.SearchCustomerByName(name);
-
-    return Results.Ok(customers);
-});
-
-app.MapGet("/customer/search/seller", async (string sellerName, ICustomerRepo repo) =>
-{
-    var customers = await repo.SearchCustomerByName(sellerName);
-
-    return Results.Ok(customers);
-});
 
 app.Run();

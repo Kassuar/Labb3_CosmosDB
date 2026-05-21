@@ -1,8 +1,8 @@
-﻿using Labb3_CosmosDB.Data.Models;
+﻿using Labb3_CosmosDB.Models;
 
-namespace Labb3_CosmosDB.Data.Interfaces
+namespace Labb3_CosmosDB.Interfaces
 {
-    public interface ICustomerRepo
+    public interface ICustomerService
     {
         Task AddCustomer(Customer customer);
 

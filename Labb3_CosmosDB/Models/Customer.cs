@@ -1,4 +1,4 @@
-﻿namespace Labb3_CosmosDB.Data.Models
+﻿namespace Labb3_CosmosDB.Models
 {
     public class Customer
     {
